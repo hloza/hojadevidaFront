@@ -1,0 +1,62 @@
+<div class="space-y-8">
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <h1 class="text-2xl font-bold mb-6">Skills</h1>
+      
+      <div *ngIf="successMessage" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+        {{ successMessage }}
+      </div>
+      
+      <div *ngIf="errorMessage" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+        {{ errorMessage }}
+      </div>
+      
+      <form [formGroup]="skillForm" (ngSubmit)="onSubmit()" class="space-y-4">
+        <div>
+          <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Skill Description</label>
+          <input
+            type="text"
+            id="description"
+            formControlName="description"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <div *ngIf="submitted && f.description.errors" class="text-red-500 text-sm mt-1">
+            <span *ngIf="f.description.errors.required">Skill description is required</span>
+          </div>
+        </div>
+        
+        <div>
+          <button
+            type="submit"
+            [disabled]="loading"
+            class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+          >
+            <span *ngIf="loading">Saving...</span>
+            <span *ngIf="!loading">Add Skill</span>
+          </button>
+        </div>
+      </form>
+    </div>
+    
+    <div *ngIf="skills.length > 0" class="bg-white rounded-lg shadow-md p-6">
+      <h2 class="text-xl font-semibold mb-4">Your Skills</h2>
+      
+      <div class="flex flex-wrap gap-2">
+        <div *ngFor="let skill of skills" class="bg-gray-100 px-4 py-2 rounded-lg flex items-center">
+          <span>{{ skill.description }}</span>
+          <button 
+            (click)="deleteSkill(skill.id)" 
+            class="ml-2 text-red-600 hover:text-red-800"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            <span class="sr-only">Delete</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <div *ngIf="skills.length === 0" class="bg-white rounded-lg shadow-md p-6 text-center">
+      <p class="text-gray-600">You haven't added any skills yet.</p>
+    </div>
+  </div>
