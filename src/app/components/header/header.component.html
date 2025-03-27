@@ -1,0 +1,63 @@
+<header class="bg-white shadow">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center py-4">
+        <div class="flex items-center">
+          <a routerLink="/" class="text-xl font-bold text-gray-800">CV Manager</a>
+        </div>
+        
+        <nav>
+          <ul class="flex space-x-6">
+            <ng-container *ngIf="authService.isLoggedIn(); else loggedOut">
+              <li>
+                <a 
+                  routerLink="/dashboard" 
+                  routerLinkActive="text-blue-600 font-medium"
+                  class="text-gray-600 hover:text-blue-600 transition-colors"
+                >
+                  Dashboard
+                </a>
+              </li>
+              <li>
+                <a 
+                  routerLink="/profile" 
+                  routerLinkActive="text-blue-600 font-medium"
+                  class="text-gray-600 hover:text-blue-600 transition-colors"
+                >
+                  Profile
+                </a>
+              </li>
+              <li>
+                <button 
+                  (click)="logout()" 
+                  class="text-gray-600 hover:text-blue-600 transition-colors"
+                >
+                  Logout
+                </button>
+              </li>
+            </ng-container>
+            
+            <ng-template #loggedOut>
+              <li>
+                <a 
+                  routerLink="/login" 
+                  routerLinkActive="text-blue-600 font-medium"
+                  class="text-gray-600 hover:text-blue-600 transition-colors"
+                >
+                  Login
+                </a>
+              </li>
+              <li>
+                <a 
+                  routerLink="/register" 
+                  routerLinkActive="text-blue-600 font-medium"
+                  class="text-gray-600 hover:text-blue-600 transition-colors"
+                >
+                  Register
+                </a>
+              </li>
+            </ng-template>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
