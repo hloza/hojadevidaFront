@@ -1,20 +1,30 @@
-import { Component } from "@angular/core"
-import {  FormBuilder,  FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
-import {  Router, RouterLink } from "@angular/router"
-import  { AuthService } from "@core/services/auth.service"
+import { Component } from "@angular/core";
+import { 
+  FormBuilder, 
+  FormGroup, 
+  ReactiveFormsModule, 
+  Validators 
+} from "@angular/forms";
+import { Router, RouterLink } from "@angular/router";
+import { AuthService } from "@core/services/auth.service";
+import { CommonModule } from "@angular/common";
 
 @Component({
   selector: "app-register",
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [
+    ReactiveFormsModule, 
+    RouterLink, 
+    CommonModule
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-export class RegisterComponent  {
-  registerForm: FormGroup
-  loading = false
-  submitted = false
-  errorMessage = ""
+export class RegisterComponent {
+  registerForm: FormGroup;
+  loading = false;
+  submitted = false;
+  errorMessage = "";
 
   constructor(
     private formBuilder: FormBuilder,
@@ -22,34 +32,36 @@ export class RegisterComponent  {
     private router: Router,
   ) {
     this.registerForm = this.formBuilder.group({
-      name: ["", Validators.required],
+      name: ["", [Validators.required]],
       email: ["", [Validators.required, Validators.email]],
-      password: ["", [Validators.required, Validators.minLength(6)]],
-    })
+      password: ["", [
+        Validators.required, 
+        Validators.minLength(6)
+      ]],
+    });
   }
 
   get f() {
-    return this.registerForm.controls
+    return this.registerForm.controls;
   }
 
   onSubmit(): void {
-    this.submitted = true
-    this.errorMessage = ""
+    this.submitted = true;
+    this.errorMessage = "";
 
     if (this.registerForm.invalid) {
-      return
+      return;
     }
 
-    this.loading = true
+    this.loading = true;
     this.authService.register(this.registerForm.value).subscribe({
-      next: () => {
-        this.router.navigate(["/dashboard"])
+      next: (response) => {
+        this.router.navigate(["/login"]);
       },
       error: (error) => {
-        this.errorMessage = error.error?.message || "Registration failed. Please try again."
-        this.loading = false
+        this.errorMessage = error.error?.message || "Registration failed. Please try again.";
+        this.loading = false;
       },
-    })
+    });
   }
 }
-
