@@ -1,1 +1,106 @@
-<p>dashboard works!</p>
+<div class="space-y-8">
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <h1 class="text-2xl font-bold mb-4">Welcome, {{ user?.name }}</h1>
+      <p class="text-gray-600">Manage your professional profile and resume information.</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-xl font-semibold mb-2">Education</h2>
+        <p class="text-gray-600 mb-4">{{ educationCount }} entries</p>
+        <a 
+          routerLink="/education" 
+          class="text-blue-600 hover:text-blue-800 font-medium flex items-center"
+        >
+          Manage
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      </div>
+      
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-xl font-semibold mb-2">Experience</h2>
+        <p class="text-gray-600 mb-4">{{ experienceCount }} entries</p>
+        <a 
+          routerLink="/experience" 
+          class="text-blue-600 hover:text-blue-800 font-medium flex items-center"
+        >
+          Manage
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      </div>
+      
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-xl font-semibold mb-2">Skills</h2>
+        <p class="text-gray-600 mb-4">{{ skillsCount }} entries</p>
+        <a 
+          routerLink="/skills" 
+          class="text-blue-600 hover:text-blue-800 font-medium flex items-center"
+        >
+          Manage
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      </div>
+      
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-xl font-semibold mb-2">Projects</h2>
+        <p class="text-gray-600 mb-4">{{ projectsCount }} entries</p>
+        <a 
+          routerLink="/projects" 
+          class="text-blue-600 hover:text-blue-800 font-medium flex items-center"
+        >
+          Manage
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      </div>
+    </div>
+    
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <h2 class="text-xl font-semibold mb-4">Resume Preview</h2>
+      <p class="text-gray-600 mb-6">This is how your resume information will appear to others.</p>
+      
+      <div class="space-y-6">
+        <div *ngIf="education.length > 0">
+          <h3 class="text-lg font-medium border-b pb-2 mb-3">Education</h3>
+          <div *ngFor="let item of education" class="mb-3">
+            <div class="font-medium">{{ item.institution }}</div>
+            <div>{{ item.title }}</div>
+            <div class="text-sm text-gray-500">{{ item.finish ? 'Completed' : 'In Progress' }}</div>
+          </div>
+        </div>
+        
+        <div *ngIf="experiences.length > 0">
+          <h3 class="text-lg font-medium border-b pb-2 mb-3">Experience</h3>
+          <div *ngFor="let item of experiences" class="mb-3">
+            <div class="font-medium">{{ item.position }} at {{ item.title }}</div>
+            <div class="text-sm text-gray-500">{{ item.period }}</div>
+          </div>
+        </div>
+        
+        <div *ngIf="skills.length > 0">
+          <h3 class="text-lg font-medium border-b pb-2 mb-3">Skills</h3>
+          <div class="flex flex-wrap gap-2">
+            <div *ngFor="let skill of skills" class="bg-gray-100 px-3 py-1 rounded-full text-sm">
+              {{ skill.description }}
+            </div>
+          </div>
+        </div>
+        
+        <div *ngIf="projects.length > 0">
+          <h3 class="text-lg font-medium border-b pb-2 mb-3">Projects</h3>
+          <div *ngFor="let project of projects" class="mb-3">
+            <div class="font-medium">{{ project.title }}</div>
+            <div class="text-sm">{{ project.description }}</div>
+            <div class="text-sm text-gray-500">{{ project.period }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
