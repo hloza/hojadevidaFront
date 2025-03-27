@@ -52,6 +52,7 @@ export class LoginComponent {
     }
 
     this.loading = true;
+  
     this.authService.login(this.loginForm.value).subscribe({
       next: (response) => {
         this.router.navigate(["/dashboard"]);
