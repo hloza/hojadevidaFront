@@ -1,1 +1,58 @@
-<p>home works!</p>
+<div class="flex flex-col items-center justify-center py-12">
+    <div class="text-center max-w-3xl">
+      <h1 class="text-4xl font-bold text-gray-900 mb-6">
+        Manage Your Professional Profile
+      </h1>
+      <p class="text-xl text-gray-600 mb-8">
+        Create and manage your professional resume with our easy-to-use platform. 
+        Track your education, experience, skills, and projects all in one place.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a 
+          *ngIf="!authService.isLoggedIn()"
+          routerLink="/register" 
+          class="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          Get Started
+        </a>
+        <a 
+          *ngIf="authService.isLoggedIn()"
+          routerLink="/dashboard" 
+          class="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          Go to Dashboard
+        </a>
+        <a 
+          *ngIf="!authService.isLoggedIn()"
+          routerLink="/login" 
+          class="px-6 py-3 bg-white text-blue-600 font-medium rounded-lg border border-blue-600 hover:bg-gray-50 transition-colors"
+        >
+          Login
+        </a>
+      </div>
+    </div>
+    
+    <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl">
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-xl font-semibold mb-3">Education</h3>
+        <p class="text-gray-600">
+          Track your educational background, degrees, and certifications.
+        </p>
+      </div>
+      
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-xl font-semibold mb-3">Experience</h3>
+        <p class="text-gray-600">
+          Document your work history and professional achievements.
+        </p>
+      </div>
+      
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-xl font-semibold mb-3">Skills & Projects</h3>
+        <p class="text-gray-600">
+          Showcase your skills and highlight your most important projects.
+        </p>
+      </div>
+    </div>
+  </div>
