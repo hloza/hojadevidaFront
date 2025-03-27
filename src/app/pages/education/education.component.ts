@@ -1,6 +1,6 @@
 import { Component, type OnInit } from "@angular/core"
-import { type FormBuilder, type FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
-import type { EducationService } from "../../services/education.service"
+import {  FormBuilder, type FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
+import  { EducationService } from "@core/services/education.service"
 import type { Education } from "@core/models/education.model"
 
 @Component({

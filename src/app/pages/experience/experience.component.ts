@@ -1,7 +1,7 @@
-import { Component, type OnInit } from "@angular/core"
-import { type FormBuilder, type FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
-import type { ExperienceService } from "@core/services/experience.service"
-import type { Experience } from "@core/models/experience.model"
+import { Component,  OnInit } from "@angular/core"
+import {  FormBuilder,  FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
+import  { ExperienceService } from "@core/services/experience.service"
+import  { Experience } from "@core/models/experience.model"
 
 @Component({
   selector: "app-experience",

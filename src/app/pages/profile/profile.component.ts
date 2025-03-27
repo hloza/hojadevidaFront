@@ -1,17 +1,18 @@
-import { Component, type OnInit } from "@angular/core"
-import { type FormBuilder, type FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
-import type { AuthService } from "@core/services/auth.service"
+import { Component, OnInit } from "@angular/core"
+import { CommonModule } from "@angular/common"
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
+import { AuthService } from "@core/services/auth.service"
 import type { User } from "@core/models/user.model"
 
 @Component({
   selector: "app-profile",
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent implements OnInit {
-  profileForm: FormGroup | null = null
+  profileForm!: FormGroup
   user: User | null = null
   loading = false
   submitted = false
@@ -21,13 +22,15 @@ export class ProfileComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-  ) {}
+  ) {
+    this.initForm() // Initialize form in constructor
+  }
 
   ngOnInit(): void {
     this.authService.user$.subscribe((user) => {
       if (user) {
         this.user = user
-        this.initForm()
+        this.updateFormValues(user)
       }
     })
 
@@ -36,15 +39,22 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  initForm(): void {
+  private initForm(): void {
     this.profileForm = this.formBuilder.group({
-      name: [this.user?.name, Validators.required],
-      email: [{ value: this.user?.email, disabled: true }],
+      name: ['', Validators.required],
+      email: [{ value: '', disabled: true }],
+    })
+  }
+
+  private updateFormValues(user: User): void {
+    this.profileForm.patchValue({
+      name: user.name,
+      email: user.email
     })
   }
 
   get f() {
-    return this.profileForm?.controls || {}
+    return this.profileForm.controls
   }
 
   onSubmit(): void {
@@ -52,12 +62,12 @@ export class ProfileComponent implements OnInit {
     this.successMessage = ""
     this.errorMessage = ""
 
-    if (this.profileForm?.invalid) {
+    if (this.profileForm.invalid) {
       return
     }
 
     this.loading = true
-    this.authService.updateProfile({ name: this.profileForm?.value.name }).subscribe({
+    this.authService.updateProfile({ name: this.profileForm.value.name }).subscribe({
       next: () => {
         this.successMessage = "Profile updated successfully"
         this.loading = false
@@ -69,4 +79,3 @@ export class ProfileComponent implements OnInit {
     })
   }
 }
-

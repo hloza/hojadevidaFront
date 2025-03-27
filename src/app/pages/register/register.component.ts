@@ -1,7 +1,7 @@
 import { Component } from "@angular/core"
-import {  FormBuilder, type FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
-import { type Router, RouterLink } from "@angular/router"
-import type { AuthService } from "@core/services/auth.service"
+import {  FormBuilder,  FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
+import {  Router, RouterLink } from "@angular/router"
+import  { AuthService } from "@core/services/auth.service"
 
 @Component({
   selector: "app-register",

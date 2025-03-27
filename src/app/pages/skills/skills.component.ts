@@ -1,7 +1,7 @@
-import { Component, type OnInit } from "@angular/core"
-import { type FormBuilder, type FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
-import type { SkillsService } from "@core/services/skills.service"
-import type { Skill } from "@core/models/skill.model"
+import { Component,  OnInit } from "@angular/core"
+import {  FormBuilder,  FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
+import  { SkillsService } from "@core/services/skill.service"
+import  { Skill } from "@core/models/skill.model"
 
 @Component({
   selector: "app-skills",
