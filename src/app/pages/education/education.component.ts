@@ -2,11 +2,12 @@ import { Component, type OnInit } from "@angular/core"
 import {  FormBuilder, type FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
 import  { EducationService } from "@core/services/education.service"
 import type { Education } from "@core/models/education.model"
+import { CommonModule } from "@angular/common"
 
 @Component({
   selector: "app-education",
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,CommonModule],
   templateUrl: './education.component.html',
   styleUrl: './education.component.css'
 })

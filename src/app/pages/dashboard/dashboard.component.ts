@@ -1,6 +1,6 @@
 import { Component, type OnInit } from "@angular/core"
 import { RouterLink } from "@angular/router"
-import { NgClass } from "@angular/common"
+import { CommonModule, NgClass } from "@angular/common"
 import  { AuthService } from "@core/services/auth.service"
 import  { EducationService } from "@core/services/education.service"
 import  { ExperienceService } from "@core/services/experience.service"
@@ -15,7 +15,7 @@ import  { Project } from "@core/models/project.model"
 @Component({
   selector: "app-dashboard",
   standalone: true,
-  imports: [RouterLink, NgClass],
+  imports: [RouterLink, NgClass, CommonModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -60,6 +60,7 @@ export class DashboardComponent implements OnInit {
 
   loadData(): void {
     this.educationService.getEducation().subscribe((data) => {
+      console.log(data);
       this.education = data
     })
 

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core"
-import  { HttpClient } from "@angular/common/http"
-import { BehaviorSubject, type Observable, tap } from "rxjs"
+import { HttpClient } from "@angular/common/http"
+import { BehaviorSubject, type Observable, catchError, tap, throwError } from "rxjs"
 import { environment } from "@environments/environment"
 import type { User } from "../models/user.model"
 
@@ -20,7 +20,14 @@ export class AuthService {
   private loadUser(): void {
     const token = this.getToken()
     if (token) {
-      this.fetchUserProfile().subscribe()
+      this.fetchUserProfile().subscribe({
+        error: (error) => {
+          console.error("Error loading user profile:", error)
+          if (error.status === 401) {
+            this.logout()
+          }
+        },
+      })
     }
   }
 
@@ -31,6 +38,10 @@ export class AuthService {
           this.setToken(response.token)
           this.fetchUserProfile().subscribe()
         }
+      }),
+      catchError((error) => {
+        console.error("Registration error:", error)
+        return throwError(() => error)
       }),
     )
   }
@@ -43,6 +54,10 @@ export class AuthService {
           this.fetchUserProfile().subscribe()
         }
       }),
+      catchError((error) => {
+        console.error("Login error:", error)
+        return throwError(() => error)
+      }),
     )
   }
 
@@ -51,6 +66,10 @@ export class AuthService {
       tap((user) => {
         this.userSubject.next(user)
       }),
+      catchError((error) => {
+        console.error("Error fetching user profile:", error)
+        return throwError(() => error)
+      }),
     )
   }
 
@@ -58,7 +77,11 @@ export class AuthService {
     return this.http.put<User>(`${this.apiUrl}/api/user/profile`, userData).pipe(
       tap((updatedUser) => {
         const currentUser = this.userSubject.value
-        this.userSubject.next({ ...currentUser, ...updatedUser })
+        this.userSubject.next({ ...currentUser, ...updatedUser } as User)
+      }),
+      catchError((error) => {
+        console.error("Error updating profile:", error)
+        return throwError(() => error)
       }),
     )
   }
