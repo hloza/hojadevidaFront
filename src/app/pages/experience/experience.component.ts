@@ -2,11 +2,12 @@ import { Component,  OnInit } from "@angular/core"
 import {  FormBuilder,  FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
 import  { ExperienceService } from "@core/services/experience.service"
 import  { Experience } from "@core/models/experience.model"
+import { CommonModule } from "@angular/common"
 
 @Component({
   selector: "app-experience",
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './experience.component.html',
   styleUrl: './experience.component.css'
 })

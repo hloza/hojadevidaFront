@@ -2,11 +2,12 @@ import { Component,  OnInit } from "@angular/core"
 import {  FormBuilder,  FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
 import  { SkillsService } from "@core/services/skill.service"
 import  { Skill } from "@core/models/skill.model"
+import { CommonModule } from "@angular/common"
 
 @Component({
   selector: "app-skills",
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,CommonModule],
   templateUrl: './skills.component.html',
   styleUrl: './skills.component.css'
 })
@@ -36,8 +37,14 @@ export class SkillsComponent implements OnInit {
   }
 
   loadSkills(): void {
-    this.skillsService.getSkills().subscribe((data) => {
-      this.skills = data
+    this.skillsService.getSkills().subscribe({
+      next: (data) => {
+        this.skills = data
+      },
+      error: (error) => {
+        console.error("Error loading skills:", error)
+        this.errorMessage = "Failed to load skills data. Please try again."
+      },
     })
   }
 
@@ -60,6 +67,7 @@ export class SkillsComponent implements OnInit {
         this.loadSkills()
       },
       error: (error) => {
+        console.error("Error adding skill:", error)
         this.errorMessage = error.error?.message || "Failed to add skill"
         this.loading = false
       },
@@ -74,6 +82,7 @@ export class SkillsComponent implements OnInit {
           this.loadSkills()
         },
         error: (error) => {
+          console.error("Error deleting skill:", error)
           this.errorMessage = error.error?.message || "Failed to delete skill"
         },
       })
